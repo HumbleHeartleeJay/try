@@ -1,0 +1,26 @@
+<h2>Teacher's Score</h2>
+
+<input type="number" id="score" placeholder="Enter score here"><br><br>
+<input type="text" id="comment" placeholder="Additional comment (optional)"><br><br>
+<button onclick="sendScore()">Submit</button>
+
+<p id="feedback"></p>
+
+<script>
+  function sendScore() {
+    const score = document.getElementById('score').value;
+    const comment = document.getElementById('comment').value;
+
+    if (score === "") {
+      document.getElementById('feedback').textContent = "Please enter a score first.";
+      document.getElementById('feedback').style.color = "red";
+      return;
+    }
+
+    window.location.href = "mailto:heartleevirtudazo99@gmail.com?subject=Student Score&body=Score: " 
+      + score + "%0AComment: " + comment;
+
+    document.getElementById('feedback').textContent = "Score submitted! Please click Send in your email app.";
+    document.getElementById('feedback').style.color = "green";
+  }
+</script>
