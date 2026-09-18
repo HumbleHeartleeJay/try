@@ -1,8 +1,25 @@
 <h2>Teacher's Score</h2>
 
 <form id="scoreForm">
-  <input type="number" id="score" name="score" placeholder="Enter score here" required><br><br>
-  <input type="text" id="comment" name="comment" placeholder="Additional comment (optional)"><br><br>
+  <label for="teacherName">Teacher's Name:</label><br>
+  <input type="text" id="teacherName" name="teacherName" placeholder="e.g. Ms. Santos" required><br><br>
+
+  <label for="score">Score (out of 100):</label><br>
+  <input type="number" id="score" name="score" placeholder="Enter score" min="0" max="100" required><br><br>
+
+  <label for="rating">Rating:</label><br>
+  <select id="rating" name="rating" required>
+    <option value="">-- Select Rating --</option>
+    <option value="Excellent">Excellent</option>
+    <option value="Very Good">Very Good</option>
+    <option value="Good">Good</option>
+    <option value="Fair">Fair</option>
+    <option value="Needs Improvement">Needs Improvement</option>
+  </select><br><br>
+
+  <label for="comment">Comment (What's lacking or needs improvement):</label><br>
+  <textarea id="comment" name="comment" rows="4" placeholder="e.g. Add more project details, fix the layout on mobile..."></textarea><br><br>
+
   <button type="submit">Submit</button>
 </form>
 
@@ -15,6 +32,13 @@
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
+    const scoreInput = document.getElementById('score');
+    if (scoreInput.value > 100) {
+      feedback.textContent = "Score cannot be more than 100.";
+      feedback.style.color = "red";
+      return;
+    }
+
     const formData = new FormData(form);
 
     try {
@@ -25,7 +49,7 @@
       });
 
       if (response.ok) {
-        feedback.textContent = "Score submitted successfully!";
+        feedback.textContent = "Score submitted successfully! Thank you.";
         feedback.style.color = "green";
         form.reset();
       } else {
